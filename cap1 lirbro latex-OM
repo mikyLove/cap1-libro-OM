@@ -1,0 +1,504 @@
+\documentclass[12pt,a4,oneside]{book}
+\usepackage{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{forest}
+\usepackage{geometry}
+\usepackage{multirow}
+\usepackage{wallpaper}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{array}
+\usepackage{xcolor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%PAQUETE INCLUIDO AL ORIGINAL
+\usepackage{graphicx} % Necesario para insertar imágenes
+\usepackage{float}    % Necesario para usar la opción H
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%PAQUETE INCLUIDO AL ORIGINAL
+\usepackage{lmodern}
+
+\begin{document}
+
+% Título y Prefacio
+\title{Validez y Fiabilidad Estadística}
+\author{Fred Torres Cruz}
+\date{2024}
+
+% Diseño de la Portada
+\ThisCenterWallPaper{1}{background.png}
+\begin{titlepage}
+     \vspace{15cm}
+     \today
+\end{titlepage}
+
+
+%----------------------------------------------------------------------
+% Inclusión de Capítulos
+%----------------------------------------------------------------------
+\include{chapters/capitulo1} 
+\include{chapters/capitulo2}
+\include{chapters/capitulo3}
+\include{chapters/capitulo4}
+\include{chapters/capitulo5}
+\include{chapters/capitulo6}
+\include{chapters/capitulo7}
+\include{chapters/capitulo8}
+\include{chapters/capitulo9}
+\include{chapters/capitulo10}
+\include{chapters/capitulo11}
+\include{chapters/capitulo12}
+\include{chapters/capitulo13}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  chapters/capitulo1.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Fundamentos Matemáticos de la Optimización para la Ciencia de Datos}
+\textbf{Autor}: \large{Miguel Gonzalo Guevara Mamani}
+\label{chap:1}
+
+\vspace{5em}
+
+En este capítulo, se presentan los fundamentos matemáticos necesarios para comprender las técnicas de optimización aplicadas en la ciencia de datos. Estos fundamentos incluyen nociones de álgebra lineal, cálculo diferencial, análisis de convexidad, y conceptos de probabilidad y estadística que son esenciales para los métodos estocásticos en optimización.
+
+\section{Cálculo y Álgebra Lineal}
+
+\subsection{Álgebra Lineal}
+
+El \textbf{álgebra lineal} es una rama de las matemáticas que estudia los \textbf{vectores}, \textbf{espacios vectoriales}, \textbf{transformaciones lineales} y \textbf{sistemas de ecuaciones lineales}. Estos conceptos son fundamentales en la ciencia de datos para representar y manipular grandes conjuntos de datos de manera eficiente.
+
+\subsubsection{Vectores y Matrices}
+
+Un \textbf{vector} es una entidad matemática que tiene magnitud y dirección, y puede representarse como una lista ordenada de números. Por ejemplo, un vector en $\mathbb{R}^n$ se puede denotar como:
+\[
+\mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{bmatrix}
+\]
+
+Una \textbf{matriz} es una tabla rectangular de números dispuestos en filas y columnas. Una matriz de dimensiones $m \times n$ se representa como:
+\[
+\mathbf{A} = \begin{bmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn} \\
+\end{bmatrix}
+\]
+
+\subsubsection{Operaciones con Matrices}
+
+Las \textbf{operaciones básicas} con matrices incluyen la suma, multiplicación por un escalar y la multiplicación de matrices. Por ejemplo, la multiplicación de una matriz $\mathbf{A} \in \mathbb{R}^{m \times n}$ por un vector $\mathbf{x} \in \mathbb{R}^n$ se define como:
+\[
+\mathbf{A}\mathbf{x} = \begin{bmatrix}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n \\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n \\
+\vdots \\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n \\
+\end{bmatrix}
+\]
+
+\subsection{Cálculo Diferencial}
+
+El \textbf{cálculo diferencial} se enfoca en el estudio de las tasas de cambio y las pendientes de las funciones. En el contexto de la optimización, es crucial para encontrar los puntos donde una función alcanza sus valores máximos o mínimos.
+
+\subsubsection{Derivadas}
+
+La \textbf{derivada} de una función $f: \mathbb{R} \to \mathbb{R}$ en un punto $x$ se define como:
+\[
+f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}
+\]
+Esta medida indica la tasa de cambio instantánea de la función en el punto $x$.
+
+\subsubsection{Gradiente}
+
+Para funciones de múltiples variables, el \textbf{gradiente} es un vector que contiene todas las derivadas parciales de la función. Si $f: \mathbb{R}^n \to \mathbb{R}$, entonces su gradiente es:
+\[
+\nabla f(\mathbf{x}) = \begin{bmatrix}
+\frac{\partial f}{\partial x_1} \\
+\frac{\partial f}{\partial x_2} \\
+\vdots \\
+\frac{\partial f}{\partial x_n} \\
+\end{bmatrix}
+\]
+El gradiente señala la dirección de la máxima tasa de incremento de la función.
+
+\section{Convexidad y Optimización}
+
+La \textbf{convexidad} es una propiedad esencial en la optimización, ya que garantiza la existencia de soluciones óptimas únicas y facilita el desarrollo de algoritmos eficientes.
+
+\subsection{Conjuntos Convexos}
+
+Un conjunto $C \subseteq \mathbb{R}^n$ es \textbf{convexo} si, para cualquier par de puntos $\mathbf{x}, \mathbf{y} \in C$ y cualquier $\theta \in [0,1]$, la combinación convexa:
+\[
+\theta \mathbf{x} + (1 - \theta) \mathbf{y} \in C
+\]
+Esta propiedad asegura que el segmento de línea que une dos puntos dentro del conjunto también está completamente contenido en el conjunto.
+
+\subsection{Funciones Convexas}
+
+Una función $f: \mathbb{R}^n \to \mathbb{R}$ es \textbf{convexa} si su dominio es un conjunto convexo y, para cualquier par de puntos $\mathbf{x}, \mathbf{y}$ en su dominio y cualquier $\theta \in [0,1]$, se cumple:
+\[
+f(\theta \mathbf{x} + (1 - \theta) \mathbf{y}) \leq \theta f(\mathbf{x}) + (1 - \theta) f(\mathbf{y})
+\]
+Las funciones convexas tienen la propiedad de que cualquier mínimo local es también un mínimo global, lo que simplifica considerablemente los problemas de optimización.
+
+\subsection{Optimización Convexa}
+
+La \textbf{optimización convexa} se centra en minimizar (o maximizar) funciones convexas sobre conjuntos convexos. Un problema de optimización convexa general puede formularse como:
+\[
+\begin{aligned}
+& \underset{\mathbf{x} \in \mathbb{R}^n}{\text{minimizar}}
+& & f(\mathbf{x}) \\
+& \text{sujeto a}
+& & g_i(\mathbf{x}) \leq 0, \quad i = 1, \ldots, m \\
+& & & h_j(\mathbf{x}) = 0, \quad j = 1, \ldots, p
+\end{aligned}
+\]
+donde $f$ y $g_i$ son funciones convexas y $h_j$ son funciones lineales.
+
+\section{Multiplicadores de Lagrange y Restricciones}
+
+Los \textbf{multiplicadores de Lagrange} son una herramienta poderosa para resolver problemas de optimización con restricciones. Permiten convertir un problema de optimización restringida en uno no restringido, facilitando su análisis y solución.
+
+\subsection{Formulación de Lagrange}
+
+Consideremos el siguiente problema de optimización con restricciones de igualdad:
+\[
+\begin{aligned}
+& \underset{\mathbf{x}}{\text{minimizar}}
+& & f(\mathbf{x}) \\
+& \text{sujeto a}
+& & g(\mathbf{x}) = 0
+\end{aligned}
+\]
+La \textbf{función de Lagrange} asociada es:
+\[
+\mathcal{L}(\mathbf{x}, \lambda) = f(\mathbf{x}) + \lambda g(\mathbf{x})
+\]
+donde $\lambda$ es el multiplicador de Lagrange.
+
+\subsection{Condiciones de Optimalidad}
+
+Para encontrar los puntos óptimos, se establecen las siguientes condiciones:
+\[
+\nabla_{\mathbf{x}} \mathcal{L} = \nabla f(\mathbf{x}) + \lambda \nabla g(\mathbf{x}) = 0
+\]
+\[
+g(\mathbf{x}) = 0
+\]
+Estas ecuaciones deben resolverse simultáneamente para encontrar los valores de $\mathbf{x}$ y $\lambda$ que optimizan la función objetivo bajo las restricciones dadas.
+
+\subsection{Interpretación Geométrica}
+
+Geométricamente, los multiplicadores de Lagrange indican cómo cambia el valor óptimo de la función objetivo cuando se modifican las restricciones. En el contexto de la ciencia de datos, esto puede interpretarse como la sensibilidad de la solución óptima ante cambios en los datos o en los parámetros del modelo.
+
+\subsection{Extensiones a Múltiples Restricciones}
+
+Cuando existen múltiples restricciones, la función de Lagrange se extiende de la siguiente manera:
+\[
+\mathcal{L}(\mathbf{x}, \boldsymbol{\lambda}) = f(\mathbf{x}) + \sum_{i=1}^m \lambda_i g_i(\mathbf{x})
+\]
+donde $\boldsymbol{\lambda} = (\lambda_1, \lambda_2, \ldots, \lambda_m)$ son los multiplicadores asociados a cada restricción.
+
+\section{Probabilidad y Estadística para Métodos Estocásticos}
+
+Los \textbf{métodos estocásticos} en optimización aprovechan la teoría de la probabilidad y la estadística para manejar incertidumbres y variabilidad en los datos. Estos métodos son especialmente útiles en contextos donde los datos son ruidosos o incompletos, permitiendo la búsqueda de soluciones robustas y eficientes.
+
+\subsection{Conceptos Básicos de Probabilidad}
+
+La \textbf{probabilidad} mide la incertidumbre asociada a eventos aleatorios. Algunos conceptos fundamentales incluyen:
+
+\subsubsection{Variable Aleatoria}
+
+Una \textbf{variable aleatoria} es una función que asigna un valor numérico a cada resultado posible en un espacio muestral. Se clasifica en:
+
+\begin{itemize}
+    \item \textbf{Discreta}: Toma un conjunto finito o contable de valores.
+    \item \textbf{Continua}: Toma un intervalo continuo de valores.
+\end{itemize}
+
+\subsubsection{Distribuciones de Probabilidad}
+
+Las \textbf{distribuciones de probabilidad} describen cómo se distribuyen los valores de una variable aleatoria. Algunas distribuciones importantes en métodos estocásticos son:
+
+\begin{itemize}
+    \item \textbf{Distribución Normal}: Describe variables continuas con una distribución simétrica alrededor de la media.
+    \item \textbf{Distribución Bernoulli}: Modela experimentos con dos posibles resultados (éxito o fracaso).
+    \item \textbf{Distribución de Poisson}: Modela el número de eventos que ocurren en un intervalo fijo de tiempo o espacio.
+\end{itemize}
+
+\subsection{Estadística Descriptiva}
+
+La \textbf{estadística descriptiva} resume y describe las características de un conjunto de datos. Incluye medidas como:
+
+\subsubsection{Media y Mediana}
+
+\textbf{Media} ($\mu$): Es el promedio de los datos.
+\[
+\mu = \frac{1}{N} \sum_{i=1}^N x_i
+\]
+
+\textbf{Mediana}: Es el valor que separa la mitad superior de la mitad inferior de un conjunto de datos.
+
+\subsubsection{Varianza y Desviación Estándar}
+
+\textbf{Varianza} ($\sigma^2$): Mide la dispersión de los datos respecto a la media.
+\[
+\sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2
+\]
+
+\textbf{Desviación Estándar} ($\sigma$): Es la raíz cuadrada de la varianza.
+\[
+\sigma = \sqrt{\sigma^2}
+\]
+
+\subsection{Inferencia Estadística}
+
+La \textbf{inferencia estadística} permite hacer generalizaciones sobre una población a partir de una muestra de datos. Incluye conceptos como:
+
+\subsubsection{Estimación de Parámetros}
+
+Proceso de utilizar datos muestrales para estimar parámetros desconocidos de una distribución poblacional.
+
+\subsubsection{Pruebas de Hipótesis}
+
+Métodos para decidir si aceptar o rechazar una hipótesis sobre un parámetro poblacional basado en datos muestrales.
+
+\subsection{Aplicaciones en Métodos Estocásticos}
+
+En métodos estocásticos de optimización, la probabilidad y la estadística se utilizan para:
+
+\begin{itemize}
+    \item \textbf{Modelar Incertidumbres}: Incorporar la variabilidad en los datos o en el modelo.
+    \item \textbf{Exploración y Explotación}: Balancear la búsqueda de nuevas soluciones (exploración) con la optimización de soluciones actuales (explotación) utilizando técnicas como el muestreo Monte Carlo.
+    \item \textbf{Regularización Estocástica}: Aplicar penalizaciones basadas en distribuciones probabilísticas para prevenir el sobreajuste.
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Ejemplos Prácticos
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ejemplos Prácticos}
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{bd cap.png}
+    \caption{Lista de postulantes al proceso de admisión del periodo 2024-1 [UNTELS].}
+    \label{fig:imagen}
+\end{figure}
+
+
+\subsection{Caso 1: Cálculo Diferencial - Gradiente y Optimización}
+
+\textbf{Descripción del Ejemplo:}
+
+En este caso, se analiza la relación entre la edad de los postulantes y su puntaje en el proceso de admisión. Utilizando cálculo diferencial, se busca determinar la edad óptima que maximiza el puntaje obtenido por los postulantes. Este análisis puede ayudar a identificar tendencias demográficas que influencian el rendimiento académico, permitiendo a la institución ajustar sus estrategias de admisión y apoyo académico.
+
+\textbf{Función definida manualmente:}
+\[
+Puntaje(\text{Edad}) = -0.5 \cdot \text{Edad}^2 + 5 \cdot \text{Edad} + 50
+\]
+
+\textbf{Derivada:}
+\[
+Puntaje'(\text{Edad}) = -1 \cdot \text{Edad} + 5
+\]
+
+\textbf{Cálculo manual del punto óptimo:}
+\[
+Puntaje'(\text{Edad}) = 0 \implies \text{Edad} = 5
+\]
+
+\textbf{Resultado:}  
+A la edad de 5, el puntaje es máximo:
+\[
+Puntaje(5) = -0.5 \cdot 5^2 + 5 \cdot 5 + 50 = -12.5 + 25 + 50 = 62.5
+\]
+
+\begin{verbatim}
+# Definir función y derivada
+def puntaje(edad):
+    return -0.5 * edad**2 + 5 * edad + 50
+
+def gradiente(edad):
+    return -1 * edad + 5
+
+# Cálculo del punto óptimo
+edad_optima = 5
+puntaje_maximo = puntaje(edad_optima)
+\end{verbatim}
+
+\textbf{Comparativa:}
+\begin{itemize}
+    \item \textbf{Manual:} Edad óptima = 5, Puntaje máximo = 62.5
+    \item \textbf{Python:} Edad óptima = 5, Puntaje máximo = 62.5
+\end{itemize}
+
+\subsubsection{Interpretación}
+
+%\textbf{Interpretación:}  
+La función definida relaciona la edad de los alumnos con el puntaje obtenido. El análisis diferencial permitió identificar que la edad óptima para maximizar el puntaje es 5 años, alcanzando un puntaje máximo de 62.5. Aunque una edad de 5 años puede no ser típica para el contexto educativo de postulantes, este resultado sugiere que la función puede estar modelando un escenario hipotético o simplificado. Es importante revisar la aplicabilidad de esta función en el contexto real para asegurar que los resultados sean coherentes y útiles para la toma de decisiones.
+
+\textbf{Implicaciones:}
+\begin{itemize}
+    \item \textbf{Optimización de Recursos:} Si se identifica una edad óptima para ciertos programas o actividades, se pueden asignar recursos de manera más eficiente.
+    \item \textbf{Planeación Educativa:} Comprender cómo diferentes variables (como la edad) afectan el rendimiento puede ayudar en la creación de programas educativos más efectivos.
+\end{itemize}
+
+\subsection{Caso 2: Álgebra Lineal - Predicción del Puntaje}
+
+\textbf{Descripción del Ejemplo:}
+
+Este caso se enfoca en la predicción de puntajes de los postulantes utilizando técnicas de álgebra lineal. Mediante la multiplicación de una matriz de características de los postulantes (como edad, experiencia, etc.) por un vector de pesos asignados a cada característica, se obtiene una estimación del puntaje que cada postulante podría obtener en el proceso de admisión. Este método permite evaluar de manera objetiva y cuantitativa el rendimiento esperado de los candidatos, facilitando la comparación y selección de los postulantes más prometedores.
+
+\textbf{Matriz y Pesos:}
+\[
+\mathbf{X} = \begin{bmatrix}
+18 & 1 & 2 \\
+20 & 2 & 3 \\
+17 & 1 & 1
+\end{bmatrix}, \quad \mathbf{w} = \begin{bmatrix} 1.5 \\ 2 \\ 3 \end{bmatrix}
+\]
+
+\textbf{Cálculo manual:}
+\[
+\mathbf{Puntaje} = \mathbf{X} \cdot \mathbf{w} = \begin{bmatrix}
+35.0 \\
+43.0 \\
+30.5
+\end{bmatrix}
+\]
+
+\begin{verbatim}
+import numpy as np
+
+# Definir matriz de características y pesos
+X = np.array([[18, 1, 2], [20, 2, 3], [17, 1, 1]])
+w = np.array([1.5, 2, 3])
+
+# Calcular puntajes predichos
+puntaje_predicho = X @ w
+\end{verbatim}
+
+\textbf{Comparativa:}
+\begin{itemize}
+    \item \textbf{Manual:} Puntajes = [35.0, 43.0, 30.5]
+    \item \textbf{Python:} Puntajes = [35.0, 43.0, 30.5]
+\end{itemize}
+
+\subsubsection{Interpretación}
+
+%\textbf{Interpretación:}  
+Mediante la multiplicación de la matriz de características \(\mathbf{X}\) por el vector de pesos \(\mathbf{w}\), se obtuvieron puntajes predichos para tres postulantes. Los resultados fueron:
+\begin{itemize}
+    \item Postulante 1: 35.0
+    \item Postulante 2: 43.0
+    \item Postulante 3: 30.5
+\end{itemize}
+Estos puntajes permiten evaluar el rendimiento esperado de los postulantes basándose en las características consideradas (por ejemplo, edad, experiencia, etc.).
+
+\textbf{Implicaciones:}
+\begin{itemize}
+    \item \textbf{Evaluación de Candidatos:} Facilita la comparación objetiva de los postulantes, ayudando a identificar a aquellos con mayor potencial.
+    \item \textbf{Mejora de Modelos Predictivos:} Los puntajes predichos pueden ser utilizados para ajustar y mejorar modelos de predicción de rendimiento académico o profesional.
+\end{itemize}
+
+\subsection{Caso 3: Estadística Descriptiva}
+\textbf{Descripción del Ejemplo:}
+
+En este ejemplo se realiza un análisis estadístico descriptivo de los puntajes obtenidos por un grupo de postulantes en el proceso de admisión. Calcular la media y la desviación estándar permite comprender la distribución general de los puntajes, identificando el rendimiento promedio y la variabilidad entre los postulantes. Este tipo de análisis es fundamental para evaluar el nivel de competencia y determinar si existen diferencias significativas en el desempeño de los candidatos.
+
+\textbf{Datos:} Puntajes = [85, 90, 78, 92, 88]
+
+\textbf{Cálculos manuales:}
+\begin{itemize}
+    \item \textbf{Media:}
+    \[
+    \mu = \frac{1}{N} \sum x_i = \frac{85 + 90 + 78 + 92 + 88}{5} = \frac{433}{5} = 86.6
+    \]
+    \item \textbf{Desviación Estándar:}
+    \[
+    \sigma = \sqrt{\frac{1}{N} \sum (x_i - \mu)^2} \approx 4.86
+    \]
+\end{itemize}
+
+\begin{verbatim}
+import numpy as np
+
+puntajes = np.array([85, 90, 78, 92, 88])
+media_puntaje = np.mean(puntajes)          # 86.6
+desviacion_estandar = np.std(puntajes)     # 4.86
+\end{verbatim}
+
+\textbf{Comparativa:}
+\begin{itemize}
+    \item \textbf{Manual:} Media = 86.6, Desviación Estándar 4.86
+    \item \textbf{Python:} Media = 86.6, Desviación Estándar 4.86
+\end{itemize}
+
+\subsubsection{Interpretación}
+
+%\textbf{Interpretación:}  
+Se calcularon la media y la desviación estándar de los puntajes obtenidos por un grupo de alumnos:
+\begin{itemize}
+    \item \textbf{Media:} 86.6
+    \item \textbf{Desviación Estándar:} 4.86
+\end{itemize}
+La media indica que, en promedio, los alumnos obtuvieron un puntaje de 86.6, lo cual puede considerarse alto dependiendo del sistema de calificación utilizado. La desviación estándar de 4.86 sugiere que la mayoría de los puntajes se encuentran relativamente cerca de la media, indicando una baja variabilidad en el rendimiento de los alumnos.
+
+\textbf{Implicaciones:}
+\begin{itemize}
+    \item \textbf{Evaluación del Rendimiento General:} Una alta media con baja desviación estándar puede indicar un buen desempeño general y consistencia entre los alumnos.
+    \item \textbf{Identificación de Necesidades de Mejora:} Si la media no es satisfactoria, se pueden implementar estrategias para elevar el rendimiento general. La baja variabilidad también puede sugerir la necesidad de identificar y atender a aquellos estudiantes que puedan necesitar apoyo adicional.
+\end{itemize}
+
+\subsection{Caso 4: Optimización Convexa}
+\textbf{Descripción del Ejemplo:}
+
+Este caso aborda la optimización de costos asociados al proceso de admisión de diferentes modalidades. Utilizando técnicas de optimización convexa, se calcula el costo total en función de la cantidad de postulantes y el costo por modalidad. Este análisis es crucial para la planificación financiera, permitiendo a la institución asignar recursos de manera eficiente y explorar oportunidades para reducir gastos sin afectar la calidad del proceso de admisión.
+
+\textbf{Cálculos manuales:}
+\[
+Costo\ Total = \sum (Costo_i \cdot Cantidad_i) = 100 \cdot 50 + 150 \cdot 30 + 200 \cdot 20 = 13500
+\]
+
+\begin{verbatim}
+import numpy as np
+
+costos_modalidad = np.array([100, 150, 200])
+cantidad_postulantes = np.array([50, 30, 20])
+costo_total = np.sum(costos_modalidad * cantidad_postulantes)
+\end{verbatim}
+
+\textbf{Comparativa:}
+\begin{itemize}
+    \item \textbf{Manual:} Costo Total = 13500
+    \item \textbf{Python:} Costo Total = 13500
+\end{itemize}
+
+\subsection{Interpretación}
+
+%\textbf{Interpretación:}  
+El cálculo del costo total asociado a diferentes modalidades de admisión arrojó un valor de 13,500 unidades monetarias. Este cálculo permite entender el gasto total en función de la cantidad de postulantes y el costo por modalidad.
+
+\textbf{Implicaciones:}
+\begin{itemize}
+    \item \textbf{Planificación Financiera:} Conocer el costo total ayuda en la asignación eficiente de presupuestos y en la planificación de futuras campañas de admisión.
+    \item \textbf{Estrategias de Reducción de Costos:} Analizar los costos por modalidad puede identificar áreas donde se pueden implementar medidas para reducir gastos sin comprometer la calidad del proceso de admisión.
+\end{itemize}
+
+% Ejemplo de cita 
+% \cite{autor2010} 
+
+
+%----------------------------------------------------------------------
+% Bibliografía
+%----------------------------------------------------------------------
+\bibliographystyle{apalike}   % Estilo de bibliografía (puedes cambiarlo)
+\bibliography{references}     % Archivo .bib con tus referencias
+
+\end{document}
