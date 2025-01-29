@@ -1,0 +1,60 @@
+#1
+
+# Definir función y derivada
+def puntaje(edad):
+    return -0.5 * edad**2 + 5 * edad + 50
+
+def gradiente(edad):
+    return -1 * edad + 5
+
+# Cálculo del punto óptimo
+edad_optima = 5
+puntaje_maximo = puntaje(edad_optima)
+
+print(f"La edad óptima es: {edad_optima}")
+print(f"El puntaje máximo es: {puntaje_maximo}")
+
+La edad óptima es: 5
+El puntaje máximo es: 62.5
+
+#2
+
+import numpy as np
+
+# Definir matriz de características y pesos
+X = np.array([[18, 1, 2], [20, 2, 3], [17, 1, 1]])
+w = np.array([1.5, 2, 3])
+
+# Calcular puntajes predichos
+puntaje_predicho = X @ w
+
+print("Puntajes predichos:", puntaje_predicho)
+
+Puntajes predichos: [35.  43.  30.5]
+
+#3
+
+import numpy as np
+
+puntajes = np.array([85, 90, 78, 92, 88])
+media_puntaje = np.mean(puntajes)          # 86.6
+desviacion_estandar = np.std(puntajes)     # 4.86
+
+print(f"Media del puntaje: {media_puntaje:.2f}")
+print(f"Desviación estándar del puntaje: {desviacion_estandar:.2f}")
+
+Media del puntaje: 86.60
+Desviación estándar del puntaje: 4.88
+
+#4
+
+import numpy as np
+
+costos_modalidad = np.array([100, 150, 200])
+cantidad_postulantes = np.array([50, 30, 20])
+costo_total = np.sum(costos_modalidad * cantidad_postulantes)
+
+print(f"El costo total es: {costo_total}")
+
+El costo total es: 13500
+
